@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Quiz App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        form {
+            width: 60%;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        #SubmitTest {
+            margin-top: 20px;
+            background-color: #2d56c7;
+            color: white;
+            font-size: 16px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #SubmitTest:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <form action="" id="MyForm">
+        <h1>SQL Quiz</h1>
+        <div id="container">
+            
+        </div>
+        <button type="submit" id="SubmitTest">Submit</button>
+    </form>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+   const Questions = [
+    { question: "Which of these is used to retrieve data from a database in SQL?", options: ["SELECT", "GET", "FETCH", "RETRIEVE"], ans: "SELECT" },
+    { question: "Which SQL statement is used to insert new data into a table?", options: ["INSERT INTO", "ADD INTO", "INSERT DATA", "UPDATE"], ans: "INSERT INTO" },
+    { question: "Which SQL clause is used to filter the results?", options: ["WHERE", "FILTER", "HAVING", "GROUP BY"], ans: "WHERE" },
+    { question: "Which SQL keyword is used to sort the result-set?", options: ["ORDER BY", "SORT", "GROUP BY", "FILTER"], ans: "ORDER BY" },
+    { question: "Which of these is used to modify data in a table in SQL?", options: ["UPDATE", "CHANGE", "MODIFY", "ALTER"], ans: "UPDATE" },
+    { question: "Which SQL function is used to count the number of rows in a table?", options: ["COUNT()", "SUM()", "TOTAL()", "ROWS()"], ans: "COUNT()" },
+    { question: "Which of these SQL statements is used to delete a row in a table?", options: ["DELETE", "REMOVE", "DROP", "TRUNCATE"], ans: "DELETE" },
+    { question: "Which of the following is used to create a new table in SQL?", options: ["CREATE TABLE", "NEW TABLE", "MAKE TABLE", "ADD TABLE"], ans: "CREATE TABLE" },
+    { question: "Which SQL clause is used to group rows that have the same values?", options: ["GROUP BY", "ORDER BY", "JOIN", "AGGREGATE"], ans: "GROUP BY" },
+    { question: "Which SQL keyword is used to remove a table from the database?", options: ["DROP", "REMOVE", "DELETE", "TRUNCATE"], ans: "DROP" },
+    { question: "Which SQL operator is used to check for a range of values?", options: ["BETWEEN", "IN", "LIKE", "IS"], ans: "BETWEEN" },
+    { question: "Which SQL keyword is used to combine the results of two or more SELECT statements?", options: ["UNION", "JOIN", "MERGE", "CONCATENATE"], ans: "UNION" },
+    { question: "Which SQL clause is used to specify the condition to be met for the join?", options: ["ON", "WHERE", "HAVING", "JOIN CONDITION"], ans: "ON" },
+    { question: "Which SQL function is used to find the highest value in a column?", options: ["MAX()", "MIN()", "TOP()", "LARGEST()"], ans: "MAX()" },
+    { question: "Which of the following is used to remove all rows from a table, but keep the structure?", options: ["TRUNCATE", "DELETE", "DROP", "REMOVE"], ans: "TRUNCATE" },
+    { question: "Which SQL statement is used to add a column to an existing table?", options: ["ALTER TABLE", "ADD COLUMN", "MODIFY TABLE", "CHANGE TABLE"], ans: "ALTER TABLE" },
+    { question: "Which SQL clause is used to filter groups of rows?", options: ["HAVING", "WHERE", "FILTER", "GROUP BY"], ans: "HAVING" },
+    { question: "Which SQL statement is used to update existing records in a table?", options: ["UPDATE", "INSERT", "MODIFY", "CHANGE"], ans: "UPDATE" },
+    { question: "Which of these SQL functions can be used to return the average of a numeric column?", options: ["AVG()", "SUM()", "COUNT()", "MAX()"], ans: "AVG()" },
+    { question: "Which SQL operator is used to match a pattern in a column?", options: ["LIKE", "MATCH", "REGEX", "IN"], ans: "LIKE" }
+];
+
+
+
+    function AddQuestions() {
+        let add_html = "";
+
+        Questions.forEach((value, question_index) => {
+            add_html += `<h2>${value.question}</h2>`;
+            value.options.forEach((option) => {
+                add_html += `<input type="radio" name="question${question_index}" value="${option}">${option}<br>`;
+            });
+        });
+
+        $("#container").html(add_html);
+    }
+
+    $(document).ready(function () {
+        AddQuestions();
+
+        $("#SubmitTest").click(function (e) {
+            e.preventDefault();
+
+            let score = 0;
+
+            Questions.forEach((value, index) => {
+                let selectedoption = $(`input[name="question${index}"]:checked`).val();
+
+                if (selectedoption == value.ans) {
+                    score++;
+                }
+            });
+
+            if (score > 15) {
+                alert(`Pass! Your score is ${score} / 20.`);
+            } else {
+                alert(`Fail! Your score is ${score} / 20.`);
+            }
+        });
+    });
+</script>
+
+</html>
